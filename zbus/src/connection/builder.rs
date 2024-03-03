@@ -440,11 +440,6 @@ impl<'a> Builder<'a> {
         // Start the socket reader task.
         conn.init_socket_reader(socket_read, already_received_bytes);
 
-        if is_bus_conn {
-            // Now that the server has approved us, we must send the bus Hello, as per specs
-            conn.hello_bus().await?;
-        }
-
         for name in self.names {
             conn.request_name(name).await?;
         }
